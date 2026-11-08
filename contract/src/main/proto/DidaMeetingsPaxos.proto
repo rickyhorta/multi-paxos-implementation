@@ -1,0 +1,77 @@
+//
+// Protocol buffers definition for DidaMeetings Paxos Service
+//
+syntax = "proto3";
+package didameetings;
+
+message PhaseOneRequest {
+  int32 instance        = 1;
+  int32 requestballot	= 2;
+}
+
+message PhaseOneReply {
+  int32 instance        = 1;
+  int32 serverid        = 2;
+  int32 requestballot	= 3;
+  bool  accepted 	= 4;
+  int32 value           = 5;
+  int32 valballot       = 6;
+  int32 maxballot       = 7;
+}
+
+message MultiPhaseOneRequest {
+  int32 requestballot = 1;
+  int32 instance      = 2;
+}
+
+message PaxosLog {
+  int32 instance   = 1;
+  int32 value      = 2;
+  int32 valballot  = 3;
+}
+
+message MultiPhaseOneReply {
+  bool accepted   = 1;
+  int32 maxballot = 2;
+  repeated PaxosLog log = 3;
+  int32 serverid        = 4;
+  int32 requestballot	= 5;
+}
+
+message PhaseTwoRequest {
+  int32 instance        = 1;
+  int32 requestballot   = 2;
+  int32 value           = 3;
+}
+
+message PhaseTwoReply {
+  int32 instance        = 1;
+  int32 serverid        = 2;
+  int32 requestballot   = 3;
+  bool  accepted        = 4;
+  int32 maxballot       = 5;
+}
+
+message LearnRequest {
+  int32 instance   = 1;
+  int32 ballot     = 2;
+  int32 value      = 3;
+}
+
+message LearnReply {
+  int32 instance   = 1;
+  int32 ballot     = 2;
+}
+
+service DidaMeetingsPaxosService {
+  rpc phaseone (PhaseOneRequest) returns (PhaseOneReply);
+  rpc multiphaseone (MultiPhaseOneRequest) returns (MultiPhaseOneReply);
+  rpc phasetwo (PhaseTwoRequest) returns (PhaseTwoReply);
+  rpc learn (LearnRequest) returns (LearnReply);
+}
+
+
+
+
+
+

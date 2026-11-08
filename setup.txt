@@ -1,0 +1,10 @@
+Console Setup: 
+mvn exec:java -Dexec.args="localhost 8000 A"
+
+Servers Setup:
+mvn exec:java -Dexec.args="8000 0 A 3"
+mvn exec:java -Dexec.args="8000 1 A 3"
+mvn exec:java -Dexec.args="8000 2 A 3"
+
+Client Setup:
+mvn exec:java -Dexec.args="1 localhost 8000 A"
